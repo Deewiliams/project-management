@@ -8,6 +8,10 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 import { makeStyles } from "@material-ui/core/styles";
+import { useMutation } from "@apollo/client";
+import { ADD_CLIENT } from "../../mutations/clientMutations";
+import { GET_CLIENTS } from "../../queries/clientQueries";
+import { set } from "mongoose";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,6 +28,21 @@ export default function AddClient() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [addClient] = useMutation(ADD_CLIENT, {
+    variables: { name, email, phone },
+    // refetchQueries: [{query: GET_CLIENTS}]
+    update(cache, { data: { addClient } }) {
+      const { clients } = cache.readQuery({
+        query: GET_CLIENTS,
+      });
+      cache.writeQuery({
+        query: GET_CLIENTS,
+        data: {
+          clients: [...clients, addClient],
+        },
+      });
+    },
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -33,25 +52,29 @@ export default function AddClient() {
     setOpen(false);
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('name:',name , "email:",email);
 
-  }
+    if (name === "" || email === "" || phone === "") {
+      alert("please fill in all the feilds");
+    }
+    addClient(name, email, phone);
+    setName("");
+    setEmail("");
+    setPhone("");
+  };
   return (
-      <div>
-        <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-          Open form dialog
-        </Button>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="form-dialog-title"
-        >
-          <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
-          <DialogContent>
-          <form spacing={3} onSubmit={handleSubmit} autoComplete="off">
+    <div>
+      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+        Open form dialog
+      </Button>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogContent>
             <TextField
               id="outlined-name-input"
               label="full name"
@@ -82,15 +105,24 @@ export default function AddClient() {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
-    </form>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button data-bs-dismiss="DialogContent" onClick={handleSubmit} type="submit" color="primary">Submit</Button>
-          </DialogActions>
-        </Dialog>
-      </div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button
+            data-bs-dismiss="DialogContent"
+            onClick={() => {
+              handleSubmit();
+              handleClose();
+            }}
+            type="submit"
+            color="primary"
+          >
+            Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
   );
 }
