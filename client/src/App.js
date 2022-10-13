@@ -1,5 +1,5 @@
-import Clients from './Component/Clients'
-import Header from './Component/Header';
+import Clients from './Component/client/Index'
+import Header from './Component/Header/Index';
 function App() {
   return (
     <div className="App">

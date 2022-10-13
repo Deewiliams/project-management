@@ -1,5 +1,6 @@
 import React from 'react'
 import { useQuery, gql } from '@apollo/client';
+import ClientTable from './ClientTable';
 
 const GET_CLIENTS = gql`
   query getClients {
@@ -19,11 +20,10 @@ console.log(data);
   if (error) return <p>Error :(</p>;
   return (
     <div>
-      {data.clients.map((c) => (
+      
         <>
-        <h6>{c.name}</h6>
+        <ClientTable data={data} />
         </>
-      ))}
     </div>
   )
 }
