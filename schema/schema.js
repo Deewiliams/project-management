@@ -7,7 +7,6 @@ const {
   GraphQLString,
   GraphQLSchema,
   GraphQLList,
-  GraphQLNonNull,
   GraphQLEnumType,
 } = require('graphql');
 
@@ -79,9 +78,9 @@ const mutation = new GraphQLObjectType({
     addClient: {
       type: ClientType,
       args: {
-        name: { type: GraphQLNonNull(GraphQLString) },
-        email: { type: GraphQLNonNull(GraphQLString) },
-        phone: { type: GraphQLNonNull(GraphQLString) },
+        name: { type: GraphQLString },
+        email: { type: GraphQLString },
+        phone: { type: GraphQLString },
       },
       resolve(parent, args) {
         const client = new Client({
@@ -97,7 +96,7 @@ const mutation = new GraphQLObjectType({
     deleteClient: {
       type: ClientType,
       args: {
-        id: { type: GraphQLNonNull(GraphQLID) },
+        id: { type: GraphQLID },
       },
       resolve(parent, args) {
         Project.find({ clientId: args.id }).then((projects) => {
@@ -113,8 +112,8 @@ const mutation = new GraphQLObjectType({
     addProject: {
       type: ProjectType,
       args: {
-        name: { type: GraphQLNonNull(GraphQLString) },
-        description: { type: GraphQLNonNull(GraphQLString) },
+        name: { type: GraphQLString },
+        description: { type: GraphQLString },
         status: {
           type: new GraphQLEnumType({
             name: 'ProjectStatus',
@@ -126,7 +125,7 @@ const mutation = new GraphQLObjectType({
           }),
           defaultValue: 'Not Started',
         },
-        clientId: { type: GraphQLNonNull(GraphQLID) },
+        clientId: { type:GraphQLID },
       },
       resolve(parent, args) {
         const project = new Project({
@@ -143,7 +142,7 @@ const mutation = new GraphQLObjectType({
     deleteProject: {
       type: ProjectType,
       args: {
-        id: { type: GraphQLNonNull(GraphQLID) },
+        id: { type: GraphQLID },
       },
       resolve(parent, args) {
         return Project.findByIdAndRemove(args.id);
@@ -153,7 +152,7 @@ const mutation = new GraphQLObjectType({
     updateProject: {
       type: ProjectType,
       args: {
-        id: { type: GraphQLNonNull(GraphQLID) },
+        id: { type: GraphQLID },
         name: { type: GraphQLString },
         description: { type: GraphQLString },
         status: {
