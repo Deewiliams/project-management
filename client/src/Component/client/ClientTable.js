@@ -1,12 +1,14 @@
-import React from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import React from "react";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -20,12 +22,11 @@ const StyledTableCell = withStyles((theme) => ({
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
-    '&:nth-of-type(odd)': {
+    "&:nth-of-type(odd)": {
       backgroundColor: theme.palette.action.hover,
     },
   },
 }))(TableRow);
-
 
 const useStyles = makeStyles({
   table: {
@@ -33,7 +34,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ClientTable({data}) {
+export default function ClientTable({ data }) {
   const classes = useStyles();
 
   return (
@@ -50,12 +51,14 @@ export default function ClientTable({data}) {
         <TableBody>
           {data.clients.map((client) => (
             <StyledTableRow key={client.id}>
-              <StyledTableCell align="left">
-                {client.name}
-              </StyledTableCell>
+              <StyledTableCell align="left">{client.name}</StyledTableCell>
               <StyledTableCell align="left">{client.email}</StyledTableCell>
               <StyledTableCell align="left">{client.phone}</StyledTableCell>
-              <StyledTableCell align="left">{client.protein}</StyledTableCell>
+              <StyledTableCell align="left">
+                <Button variant="contained" color="primary">
+                  <DeleteIcon />
+                </Button>
+              </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
