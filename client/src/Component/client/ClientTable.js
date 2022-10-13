@@ -9,7 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { useMutation } from '@apollo/client';
+import { useMutation } from "@apollo/client";
 import { DELETE_CLIENTS } from "../../mutations/clientMutations";
 import { GET_CLIENTS } from "../../queries/clientQueries";
 
@@ -40,25 +40,31 @@ const useStyles = makeStyles({
 export default function ClientTable({ client }) {
   const classes = useStyles();
   const [deleteClient] = useMutation(DELETE_CLIENTS, {
-    variables: {id: client.id},
-    refetchQueries: [{query: GET_CLIENTS}]
+    variables: { id: client.id },
+    // refetchQueries: [{query: GET_CLIENTS}]
+    update(cache, { data: { deleteClient } }) {
+      const { clients } = cache.readQuery({
+        query: GET_CLIENTS
+      });
+      cache.writeQuery({
+        query: GET_CLIENTS,
+        data: {
+          clients: clients.filter((client) => client.id !== deleteClient.id),
+        },
+      });
+    },
   });
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
-       
-        <TableBody>
-              <StyledTableCell align="left">{client.name}</StyledTableCell>
-              <StyledTableCell align="left">{client.email}</StyledTableCell>
-              <StyledTableCell align="left">{client.phone}</StyledTableCell>
-              <StyledTableCell align="left">
-                <Button variant="contained" color="primary" onClick={deleteClient}>
-                  <DeleteIcon />
-                </Button>
-              </StyledTableCell>
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <TableBody>
+      <StyledTableCell align="left">{client.name}</StyledTableCell>
+      <StyledTableCell align="left">{client.email}</StyledTableCell>
+      <StyledTableCell align="left">{client.phone}</StyledTableCell>
+      <StyledTableCell align="left">
+        <Button variant="contained" color="primary" onClick={deleteClient}>
+          <DeleteIcon />
+        </Button>
+      </StyledTableCell>
+    </TableBody>
   );
 }

@@ -53,12 +53,9 @@ const Clients = () => {
             <StyledTableCell align="left">Action</StyledTableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
           {data.clients.map((client) => (
             <ClientTable client={client} key={client.id} />
-            
           ))}
-        </TableBody>
       </Table>
     </TableContainer>
         </>
