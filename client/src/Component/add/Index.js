@@ -111,9 +111,7 @@ const Index = () => {
           </Button>
           <Button
             data-bs-dismiss="DialogContent"
-            onClick={
-              handleSubmit
-            }
+            onClick={handleSubmit}
             type="submit"
             color="primary"
           >
