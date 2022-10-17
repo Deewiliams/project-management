@@ -7,6 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import { Button, Container, Typography } from "@material-ui/core";
 import ClientProjectInfo from "./ClientProjectInfo";
 import DeleteProject from "../Component/DeleteProject";
+import EditProject from "../Component/EditProject";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,6 +67,7 @@ const Project = () => {
               </div>
               <div>
                 <ClientProjectInfo client={data.project.client} />
+                <EditProject project={data.project} />
                 <DeleteProject projectId={data.project.id} />
               </div>
             </div>

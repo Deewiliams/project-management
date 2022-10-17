@@ -65,7 +65,6 @@ const Index = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(name, description, status, clientId);
     if (name === "" || description === "" || status === "") {
       alert("please fill in all the feilds");
     }
