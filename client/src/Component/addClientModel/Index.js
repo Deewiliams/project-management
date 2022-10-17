@@ -28,21 +28,21 @@ export default function AddClient() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  // const [addClient] = useMutation(ADD_CLIENT, {
-  //   variables: { name, email, phone },
-  //   // refetchQueries: [{query: GET_CLIENTS}]
-  //   update(cache, { data: { addClient } }) {
-  //     const { clients } = cache.readQuery({
-  //       query: GET_CLIENTS,
-  //     });
-  //     cache.writeQuery({
-  //       query: GET_CLIENTS,
-  //       data: {
-  //         clients: [...clients, addClient],
-  //       },
-  //     });
-  //   },
-  // });
+  const [addClient] = useMutation(ADD_CLIENT, {
+    variables: { name, email, phone },
+    // refetchQueries: [{query: GET_CLIENTS}]
+    update(cache, { data: { addClient } }) {
+      const { clients } = cache.readQuery({
+        query: GET_CLIENTS,
+      });
+      cache.writeQuery({
+        query: GET_CLIENTS,
+        data: {
+          clients: [...clients, addClient],
+        },
+      });
+    },
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -55,7 +55,13 @@ export default function AddClient() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    c
+    if (name === "" || email === "" || phone === "") {
+      alert("please fill in all the feilds");
+    }
+    addClient(name, email, phone);
+    setName("");
+    setEmail("");
+    setPhone("");
   };
   return (
     <div>
