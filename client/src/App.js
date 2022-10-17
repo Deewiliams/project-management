@@ -1,10 +1,7 @@
-import Clients from './Component/client/Index'
-import Header from './Component/Header/Index';
-import Add from './Component/add/Index'
-import Project from './Component/Project/Index'
 import Home from './Pages/Home';
+import Project from './Pages/Project';
 import NotFound from './Pages/NotFound';
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 
 function App() {
@@ -12,16 +9,11 @@ function App() {
     <div className="App">
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/Project/:id" element={<Project />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   </div>
-    // <div className="App">
-    //  <h1>Hello world</h1>
-    //  <Header />
-    //  <Project />
-    //  <Add />
-    //  <Clients />
-    // </div>
+    
   );
 }
 

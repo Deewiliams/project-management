@@ -1,8 +1,8 @@
-import { Button } from "@material-ui/core";
 import React from "react";
+import { Button } from "@material-ui/core";
+import { Link } from 'react-router-dom'
 
 const ProjectCard = ({ project }) => {
-  console.log("hello projects", project);
   return (
     <div>
       <div
@@ -15,7 +15,9 @@ const ProjectCard = ({ project }) => {
         }}
       >
         <h3>{project.name}</h3>
+        <Link to={`/project/${project.id}`}>
         <Button>View</Button>
+        </Link>
       </div>
       <p
         style={{
