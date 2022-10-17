@@ -3,9 +3,9 @@ import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_PROJECT } from "../queries/projectQueries";
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { Button, Container, Typography } from "@material-ui/core";
+import ClientProjectInfo from "./ClientProjectInfo";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,11 +32,23 @@ const Project = () => {
   return (
     <div className={classes.root}>
       <Container>
-        <Grid container spacing={3}>
+        <Grid container spacing={3} style={{margin: 'auto'}}>
           <Grid item xs={12}>
-            <Paper className={classes.paper}>
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-                <div style={{ textAlign: "start" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-evenly",
+                flexDirection: "column",
+                alignItems: "start",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                }}
+              >
+                <div>
                   <Typography variant="h3">{data.project.name}</Typography>
                   <Typography variant="h5">
                     Description:
@@ -46,10 +58,15 @@ const Project = () => {
                   <Typography variant="h6">{data.project.status}</Typography>
                 </div>
                 <div>
-                  <Button>Back</Button>
+                  <Link to="/">
+                    <Button>Back</Button>
+                  </Link>
                 </div>
               </div>
-            </Paper>
+              <div>
+                <ClientProjectInfo client={data.project.client} />
+              </div>
+            </div>
           </Grid>
         </Grid>
       </Container>
