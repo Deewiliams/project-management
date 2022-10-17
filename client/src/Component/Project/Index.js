@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { useQuery } from "@apollo/client";
-import { GET_PROJECT } from "../../queries/projectQueries";
+import { GET_PROJECTS } from "../../queries/projectQueries";
 import ProjectCard from "./ProjectCard";
 
 const useStyles = makeStyles((theme) => ({
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 const Project = () => {
   const classes = useStyles();
 
-  const { loading, error, data } = useQuery(GET_PROJECT);
+  const { loading, error, data } = useQuery(GET_PROJECTS);
   console.log("projects", data);
 
   if (loading) return <p>Loading...</p>;
