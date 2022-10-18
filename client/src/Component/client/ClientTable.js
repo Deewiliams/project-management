@@ -22,7 +22,7 @@ const StyledTableCell = withStyles((theme) => ({
 
 
 
-export default function ClientTable({ client }) {
+export default function ClientTable({ client,index }) {
   const [deleteClient] = useMutation(DELETE_CLIENTS, {
     variables: { id: client.id },
     // refetchQueries: [{query: GET_CLIENTS},{query: GET_PROJECTS}]
@@ -41,11 +41,12 @@ export default function ClientTable({ client }) {
 
   return (
     <TableBody>
+      <StyledTableCell align="left">{index + 1}</StyledTableCell>
       <StyledTableCell align="left">{client.name}</StyledTableCell>
       <StyledTableCell align="left">{client.email}</StyledTableCell>
       <StyledTableCell align="left">{client.phone}</StyledTableCell>
       <StyledTableCell align="left">
-        <Button variant="contained" color="primary" onClick={deleteClient}>
+        <Button variant="contained" color="secondary" onClick={deleteClient}>
           <DeleteIcon />
         </Button>
       </StyledTableCell>

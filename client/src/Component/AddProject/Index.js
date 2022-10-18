@@ -53,7 +53,7 @@ const Index = () => {
   });
 
   const { loading, error, data } = useQuery(GET_CLIENTS);
-  if (loading) return <p>Loading...</p>;
+  if (loading) return null;
   if (error) return <p>Error </p>;
 
   const handleClickOpen = () => {

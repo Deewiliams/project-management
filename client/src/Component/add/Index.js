@@ -4,27 +4,14 @@ import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-// import DialogContentText from "@material-ui/core/DialogContentText";
+import { Grid } from "@material-ui/core";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { useMutation } from "@apollo/client";
 import { ADD_CLIENT } from "../../mutations/clientMutations";
 import { GET_CLIENTS } from "../../queries/clientQueries";
-
-import { makeStyles } from "@material-ui/core/styles";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: "25ch",
-    },
-  },
-}));
-
 const Index = () => {
-  const classes = useStyles();
-
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -79,46 +66,58 @@ const Index = () => {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogTitle id="form-dialog-title">Add client</DialogTitle>
         <DialogContent>
-          <TextField
-            id="outlined-name-input"
-            label="full name"
-            type="text"
-            variant="outlined"
-            placeholder="Full name"
-            fullWidth
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <TextField
-            id="outlined-email-input"
-            label="email"
-            type="email"
-            placeholder="Enter email"
-            variant="outlined"
-            fullWidth
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <TextField
-            id="outlined-phone-input"
-            label="Phone number"
-            type="number"
-            placeholder="Mobile number"
-            variant="outlined"
-            fullWidth
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          />
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <TextField
+                id="outlined-name-input"
+                label="Full name"
+                type="text"
+                variant="outlined"
+                placeholder="Full name"
+                fullWidth
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                id="outlined-email-input"
+                label="email"
+                type="email"
+                placeholder="Enter email"
+                variant="outlined"
+                fullWidth
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                id="outlined-phone-input"
+                label="Phone number"
+                type="number"
+                placeholder="Mobile number"
+                variant="outlined"
+                fullWidth
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </Grid>
+          </Grid>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
           <Button
-            data-bs-dismiss="DialogContent"
-            onClick={handleSubmit}
+            onClick={
+              handleSubmit
+              // setTimeout(() => {
+              //   handleClose();
+              // }, 1000);
+            }
             type="submit"
             color="primary"
           >

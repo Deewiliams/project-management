@@ -11,10 +11,6 @@ import { GET_CLIENTS } from "../../queries/clientQueries";
 import ClientTable from "./ClientTable";
 
 const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
   body: {
     fontSize: 14,
   },
@@ -38,14 +34,15 @@ const Clients = () => {
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
+              <StyledTableCell align="left">No</StyledTableCell>
               <StyledTableCell align="left">Full names</StyledTableCell>
               <StyledTableCell align="left">Email</StyledTableCell>
               <StyledTableCell align="left">phone</StyledTableCell>
               <StyledTableCell align="left">Action</StyledTableCell>
             </TableRow>
           </TableHead>
-          {data.clients.map((client) => (
-            <ClientTable client={client} key={client.id} />
+          {data.clients.map((client, index) => (
+            <ClientTable client={client} index={index} key={client.id} />
           ))}
         </Table>
       </TableContainer>
