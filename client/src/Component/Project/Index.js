@@ -23,7 +23,7 @@ const Project = () => {
   const { loading, error, data } = useQuery(GET_PROJECTS);
   console.log("projects", data);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return null;
   if (error) return <p>Error :(</p>;
 
   return (
@@ -41,6 +41,8 @@ const Project = () => {
       ) : (
         <>There are no projects</>
       )}
+      <br />
+      <hr />
     </div>
   );
 };

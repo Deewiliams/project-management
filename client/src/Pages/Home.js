@@ -11,7 +11,6 @@ const Home = () => {
           <Project />
         </div>
         <br />
-        <hr />
         <Clients />
       </div>
     </Container>

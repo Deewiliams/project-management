@@ -1,3 +1,4 @@
+import './App.css';
 import Home from './Pages/Home';
 import Project from './Pages/Project';
 import NotFound from './Pages/NotFound';

@@ -9,6 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import { useQuery } from "@apollo/client";
 import { GET_CLIENTS } from "../../queries/clientQueries";
 import ClientTable from "./ClientTable";
+import Loading from "../Loading";
 
 const StyledTableCell = withStyles((theme) => ({
   body: {
@@ -26,7 +27,7 @@ const Clients = () => {
 
   const { loading, error, data } = useQuery(GET_CLIENTS);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading />;
   if (error) return <p>Error :(</p>;
   return (
     <>

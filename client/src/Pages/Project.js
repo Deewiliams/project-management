@@ -34,10 +34,10 @@ const Project = () => {
   return (
     <div className={classes.root}>
       <Container style={{ marginTop: 100 }}>
-            <Typography variant="h4">Project Information</Typography>
-            <br />
+        <Typography variant="h4">Project Information</Typography>
+        <br />
         <div className={classes.root}>
-          <Grid container spacing={3} >
+          <Grid container spacing={3}>
             <Grid item xs={12} sm={4}>
               <Paper className={classes.paper}>
                 <div>
@@ -63,12 +63,12 @@ const Project = () => {
                   </Typography>
                   <br />
                   <Grid>
-                   <Link to='/'>
-                   <Button variant="contained" color="primary" fullWidth>
-                      <ArrowBackIcon />
-                      Back
-                    </Button>
-                   </Link>
+                    <Link to="/">
+                      <Button variant="contained" color="primary" fullWidth>
+                        <ArrowBackIcon />
+                        Back
+                      </Button>
+                    </Link>
                   </Grid>
                 </div>
               </Paper>
