@@ -11,6 +11,7 @@ import { ADD_CLIENT } from "../../mutations/clientMutations";
 import { GET_CLIENTS } from "../../queries/clientQueries";
 
 import { makeStyles } from "@material-ui/core/styles";
+import AccountBoxIcon from "@material-ui/icons/AccountBox";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,8 +65,14 @@ const Index = () => {
   };
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open form dialog
+      <Button
+        style={{ color: "white" }}
+        variant="contained"
+        color="primary"
+        onClick={handleClickOpen}
+      >
+        <AccountBoxIcon />
+        Add client
       </Button>
       <Dialog
         open={open}

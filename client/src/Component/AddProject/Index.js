@@ -17,6 +17,7 @@ import { GET_PROJECTS } from "../../queries/projectQueries";
 import { GET_CLIENTS } from "../../queries/clientQueries";
 import { ADD_PROJECT } from "../../mutations/projectMutations";
 import { makeStyles } from "@material-ui/core/styles";
+import ListIcon from '@material-ui/icons/List';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,7 +80,8 @@ const Index = () => {
     <>
       <>
         <div>
-          <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+          <Button style={{color: 'white'}} variant="contained" color="primary" onClick={handleClickOpen}>
+            <ListIcon />
             Add projects
           </Button>
           <Dialog
