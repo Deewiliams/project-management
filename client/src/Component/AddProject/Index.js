@@ -110,6 +110,7 @@ const Index = () => {
                     label="Description"
                     type="text"
                     variant="outlined"
+                    multiline
                     placeholder="Project description"
                     fullWidth
                     value={description}

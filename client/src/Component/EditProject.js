@@ -55,6 +55,7 @@ const EditProject = ({ project }) => {
             id="outlined-name-input"
             label="Description"
             type="text"
+            multiline
             variant="outlined"
             placeholder="Project description"
             fullWidth
