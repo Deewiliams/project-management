@@ -10,12 +10,14 @@ import { useMutation } from "@apollo/client";
 import { ADD_CLIENT } from "../../mutations/clientMutations";
 import { GET_CLIENTS } from "../../queries/clientQueries";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
+import Alert from "@material-ui/lab/Alert";
 
 const Index = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [message,setMessage] = useState("")
 
   const [addClient] = useMutation(ADD_CLIENT, {
     variables: { name, email, phone },
@@ -43,7 +45,7 @@ const Index = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (name === "" || email === "" || phone === "") {
-      alert("please fill in all the feilds");
+      setMessage("please fill in all the feilds");
     }
     addClient(name, email, phone);
     setName("");
@@ -66,9 +68,15 @@ const Index = () => {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Add client</DialogTitle>
         <DialogContent>
           <Grid container spacing={3}>
+          <Grid item xs={12}>
+                  {message ? (
+                    <Alert severity="error">{message}</Alert>
+                  ) : (
+                    <DialogTitle id="form-dialog-title">Add client</DialogTitle>
+                  )}
+                </Grid>
             <Grid item xs={12}>
               <TextField
                 id="outlined-name-input"

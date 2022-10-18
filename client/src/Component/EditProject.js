@@ -30,7 +30,6 @@ const EditProject = ({ project }) => {
 
     if (name === "" || description === "" || status === "") {
       setMessage("please fill in all the feilds");
-      // alert("please fill in all the feilds");
     }
 
     updateProject(name, description, status);

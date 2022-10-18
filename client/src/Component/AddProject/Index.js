@@ -7,17 +7,16 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-// import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_PROJECTS } from "../../queries/projectQueries";
 import { GET_CLIENTS } from "../../queries/clientQueries";
 import { ADD_PROJECT } from "../../mutations/projectMutations";
 import { makeStyles } from "@material-ui/core/styles";
-import ListIcon from '@material-ui/icons/List';
+import Alert from "@material-ui/lab/Alert";
+import ListIcon from "@material-ui/icons/List";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,6 +35,7 @@ const Index = () => {
   const [description, setDescription] = useState("");
   const [clientId, setClientId] = useState("");
   const [status, setStatus] = useState("new");
+  const [message, setMessage] = useState("");
 
   const [addProject] = useMutation(ADD_PROJECT, {
     variables: { name, description, clientId, status },
@@ -54,7 +54,7 @@ const Index = () => {
 
   const { loading, error, data } = useQuery(GET_CLIENTS);
   if (loading) return null;
-  if (error) return <p>Error </p>;
+  if (error) return <p>Something went wrong </p>;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -67,9 +67,8 @@ const Index = () => {
     e.preventDefault();
 
     if (name === "" || description === "" || status === "") {
-      alert("please fill in all the feilds");
+      setMessage("please fill in all the feilds");
     }
-    console.log(name, description, status, clientId);
     addProject(name, description, status, clientId);
     setName("");
     setDescription("");
@@ -78,9 +77,13 @@ const Index = () => {
 
   return (
     <>
-      <>
         <div>
-          <Button style={{color: 'white'}} variant="contained" color="primary" onClick={handleClickOpen}>
+          <Button
+            style={{ color: "white" }}
+            variant="contained"
+            color="primary"
+            onClick={handleClickOpen}
+          >
             <ListIcon />
             Add projects
           </Button>
@@ -89,9 +92,16 @@ const Index = () => {
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
           >
-            <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+            <br />
             <DialogContent>
               <Grid container spacing={3}>
+                <Grid item xs={12}>
+                  {message ? (
+                    <Alert severity="error">{message}</Alert>
+                  ) : (
+                    <DialogTitle id="form-dialog-title">Add Project</DialogTitle>
+                  )}
+                </Grid>
                 <Grid item xs={12}>
                   <TextField
                     id="outlined-name-input"
@@ -117,7 +127,7 @@ const Index = () => {
                     onChange={(e) => setDescription(e.target.value)}
                   />
                 </Grid>
-                
+
                 <Grid item xs={12}>
                   <FormControl
                     fullWidth
@@ -161,9 +171,13 @@ const Index = () => {
                     >
                       <MenuItem value={clientId}>Select Client</MenuItem>
                       {data.clients.map((client) => (
-                          <MenuItem value={client.id} key={client.id} id={client.id}>
-                            {client.name}
-                          </MenuItem>
+                        <MenuItem
+                          value={client.id}
+                          key={client.id}
+                          id={client.id}
+                        >
+                          {client.name}
+                        </MenuItem>
                       ))}
                     </Select>
                   </FormControl>
@@ -186,7 +200,6 @@ const Index = () => {
           </Dialog>
         </div>
       </>
-    </>
   );
 };
 
