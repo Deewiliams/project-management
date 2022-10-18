@@ -3,16 +3,17 @@ import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_PROJECT } from "../queries/projectQueries";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import { Button, Container, Typography } from "@material-ui/core";
+import { Button, Container, Typography, Grid } from "@material-ui/core";
 import ClientProjectInfo from "./ClientProjectInfo";
 import DeleteProject from "../Component/DeleteProject";
 import EditProject from "../Component/EditProject";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+
+import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    marginTop: 60,
   },
   paper: {
     padding: theme.spacing(2),
@@ -26,7 +27,6 @@ const Project = () => {
   const { loading, error, data } = useQuery(GET_PROJECT, {
     variables: { id },
   });
-  console.log("getting data", data);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error </p>;
@@ -34,45 +34,54 @@ const Project = () => {
   return (
     <div className={classes.root}>
       <Container>
-        <Grid container spacing={3} style={{margin: 'auto'}}>
-          <Grid item xs={12}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-evenly",
-                flexDirection: "column",
-                alignItems: "start",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-evenly",
-                }}
-              >
+        <div className={classes.root}>
+          <Grid container spacing={3} style={{ marginTop: 100 }}>
+            <Grid item xs={12} sm={4}>
+              <Paper className={classes.paper}>
                 <div>
                   <Typography variant="h3">{data.project.name}</Typography>
-                  <Typography variant="h5">
-                    Description:
+                  <br />
+                  <Typography
+                    variant="h5"
+                    style={{ textAlign: "justify", fontSize: 15 }}
+                  >
+                    <span style={{ color: "black" }}>Description:</span>
                     <br />
                     <span>{data.project.description}</span>
                   </Typography>
-                  <Typography variant="h6">{data.project.status}</Typography>
+                  <br />
+                  <Typography
+                    variant="h5"
+                    style={{ textAlign: "start", fontSize: 15 }}
+                  >
+                    Status:{" "}
+                    <span style={{ color: "black" }}>
+                      {data.project.status}
+                    </span>
+                  </Typography>
+                  <br />
+                  <Grid>
+                    <Button variant="contained" color="primary" fullWidth>
+                      <ArrowBackIcon />
+                      Back
+                    </Button>
+                  </Grid>
                 </div>
-                <div>
-                  <Link to="/">
-                    <Button>Back</Button>
-                  </Link>
-                </div>
-              </div>
-              <div>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <Paper className={classes.paper}>
                 <ClientProjectInfo client={data.project.client} />
-                <EditProject project={data.project} />
                 <DeleteProject projectId={data.project.id} />
-              </div>
-            </div>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <Paper className={classes.paper}>
+                <EditProject project={data.project} />
+              </Paper>
+            </Grid>
           </Grid>
-        </Grid>
+        </div>
       </Container>
     </div>
   );

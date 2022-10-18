@@ -7,6 +7,7 @@ import {
   FormControl,
   InputLabel,
   Button,
+  Typography,
 } from "@material-ui/core";
 import { GET_PROJECT } from "../queries/projectQueries";
 import { UPDATE_PROJECT } from "../mutations/projectMutations";
@@ -34,6 +35,9 @@ const EditProject = ({ project }) => {
   return (
     <div>
       <Grid container spacing={3}>
+        <Typography variant="h5" style={{alignItems: "start"}}>
+          Update info
+        </Typography>
         <Grid item xs={12}>
           <TextField
             id="outlined-name-input"
@@ -80,7 +84,7 @@ const EditProject = ({ project }) => {
             </Select>
           </FormControl>
         </Grid>
-        <Button onClick={handleSubmit}>Update</Button>
+        <Button variant="contained" color="primary" fullWidth onClick={handleSubmit}>Update</Button>
       </Grid>
     </div>
   );
