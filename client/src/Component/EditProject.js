@@ -9,6 +9,7 @@ import {
   Button,
   Typography,
 } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 import { GET_PROJECT } from "../queries/projectQueries";
 import { UPDATE_PROJECT } from "../mutations/projectMutations";
 import { useMutation } from "@apollo/client";
@@ -17,6 +18,7 @@ const EditProject = ({ project }) => {
   const [name, setName] = useState(project.name);
   const [description, setDescription] = useState(project.description);
   const [status, setStatus] = useState("");
+  const [message, setMessage] = useState("");
 
   const [updateProject] = useMutation(UPDATE_PROJECT, {
     variables: { id: project.id, name, description, status },
@@ -27,7 +29,8 @@ const EditProject = ({ project }) => {
     e.preventDefault();
 
     if (name === "" || description === "" || status === "") {
-      alert("please fill in all the feilds");
+      setMessage("please fill in all the feilds");
+      // alert("please fill in all the feilds");
     }
 
     updateProject(name, description, status);
@@ -35,9 +38,16 @@ const EditProject = ({ project }) => {
   return (
     <div>
       <Grid container spacing={3}>
-        <Typography variant="h5" style={{alignItems: "start"}}>
-          Update info
-        </Typography>
+        <Grid item xs={12}>
+          {message ? (
+            <Alert severity="error">{message}</Alert>
+          ) : (
+            <Typography variant="h5" style={{ alignItems: "start" }}>
+              Update info
+            </Typography>
+          )}
+        </Grid>
+        <br />
         <Grid item xs={12}>
           <TextField
             id="outlined-name-input"
@@ -85,7 +95,14 @@ const EditProject = ({ project }) => {
             </Select>
           </FormControl>
         </Grid>
-        <Button variant="contained" color="primary" fullWidth onClick={handleSubmit}>Update</Button>
+        <Button
+          variant="contained"
+          color="primary"
+          fullWidth
+          onClick={handleSubmit}
+        >
+          Update
+        </Button>
       </Grid>
     </div>
   );
