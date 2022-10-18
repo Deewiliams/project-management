@@ -8,6 +8,7 @@ import ClientProjectInfo from "./ClientProjectInfo";
 import DeleteProject from "../Component/DeleteProject";
 import EditProject from "../Component/EditProject";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import Loading from "../Component/Loading";
 
 import Paper from "@material-ui/core/Paper";
 
@@ -28,7 +29,7 @@ const Project = () => {
     variables: { id },
   });
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading />;
   if (error) return <p>Error </p>;
 
   return (

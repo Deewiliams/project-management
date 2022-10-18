@@ -21,7 +21,6 @@ const Project = () => {
   const classes = useStyles();
 
   const { loading, error, data } = useQuery(GET_PROJECTS);
-  console.log("projects", data);
 
   if (loading) return null;
   if (error) return <p>Error :(</p>;
