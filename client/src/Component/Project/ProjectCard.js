@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@material-ui/core";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 const ProjectCard = ({ project }) => {
   return (
@@ -15,19 +15,24 @@ const ProjectCard = ({ project }) => {
         }}
       >
         <h3>{project.name}</h3>
-        <Link to={`/project/${project.id}`}>
-        <Button>View</Button>
+        <Link to={`/project/${project.id}`} style={{ textDecoration: "none" }}>
+          <Button variant="outlined">View</Button>
         </Link>
       </div>
       <p
         style={{
           textAlign: "start",
-            }}
+        }}
       >
-        Status: <span  style={{
-          color: "black",
-          fontWeight: "bold",
-        }}>{project.status}</span>
+        Status:{" "}
+        <span
+          style={{
+            color: "black",
+            fontWeight: "bold",
+          }}
+        >
+          {project.status}
+        </span>
       </p>
     </div>
   );
